@@ -1,7 +1,11 @@
+# install.packages("C:\\Program Files\\R\\R-4.3.2\\library\\d3heatmap_0.6.1.tar.gz",repos=NULL,type="source")
+
 library(magrittr)
 
-# dr3 for R and is replace "d3heatmap"
+# d3.js for R
 library(d3r)
+# https://www.rdocumentation.org/packages/heatmap3/versions/1.1.9/topics/heatmap3
+library(heatmap3)
 library(dplyr)
 library(readr)
 
@@ -27,13 +31,21 @@ gmdistmat <- dist(select(gmun, -country))
 
 print(gmdistmat)
 
-d3heatmap(
+z_matrix <- matrix(gmdistmat, nrow = 13, ncol = 13)
+print(z_matrix)
+
+print(gmun$country)
+
+heatmap3(
     # calculate distance matrix
-    gmdistmat,
+    z_matrix,
     # name the rows (top to bottom)
-    labRow = gmun$country, 
+    labRow = gmun$country,
     # name the columns (left to right)
-    labCol = gmun$country, 
+    labCol = gmun$country,
     # turn off dendrogram
     dendrogram = 'none')
+
+
+
 
